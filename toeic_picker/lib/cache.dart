@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:redis/redis.dart';
 
+const String IP = "192.168.1.5";
+
 class Cache {
   RedisConnection conn = new RedisConnection();
   int score = 0;
@@ -16,7 +18,7 @@ class Cache {
 
   void send(Object obj) {
     conn
-        .connect("192.168.1.3", 6378)
+        .connect(IP, 6378)
         .then((cmd) => {cmd.send_object(obj).then((resp) => {})})
         .onError((error, stackTrace) => {throw error ?? error});
   }

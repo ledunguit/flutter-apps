@@ -1,5 +1,7 @@
 import 'package:redis/redis.dart';
 
+const String IP = "192.168.1.5";
+
 class CacheResult {
   RedisConnection conn = new RedisConnection();
   int score = 0;
@@ -13,14 +15,14 @@ class CacheResult {
   void compare(String hName1, String hName2) {
     // TEST
     List<String> res = [];
-    conn.connect("192.168.1.3", 6378).then((cmd) => {
+    conn.connect(IP, 6378).then((cmd) => {
           cmd.send_object(["HGETALL", hName1]).then((resp) => {
                 res = new List<String>.from(resp),
               })
         });
     // RESULT
     List<String> result = [];
-    conn.connect("192.168.1.3", 6378).then((cmd) => {
+    conn.connect(IP, 6378).then((cmd) => {
           cmd.send_object(["HGETALL", hName2]).then((resp) => {
                 result = new List<String>.from(resp),
               })
